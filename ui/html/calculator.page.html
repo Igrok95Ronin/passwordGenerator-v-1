@@ -1,0 +1,68 @@
+{{template "base" .}}
+
+{{define "title"}}Калькулятор!{{end}}
+{{define "h1Title"}}<a class="calculatorLogo" href='/'>Calculator</a>{{end}}
+{{define "Git"}}<a href="https://github.com/Igrok95Ronin/calculator-v-1" target="_blank">Git Calculator</a>{{end}}
+
+{{define "main"}}
+<main class="mainCalculator no-select">
+    <section class="secForms">
+        <h2 class="errors"></h2>
+        <form class="mainForms" action="/formHandler" method="post" >
+            <input class="mainForms__data" type="text" name="data" placeholder="0" maxlength="10">
+            <fieldset class="fieldsetOne">
+                <input class="buttonWidth" type="button" value="C">
+                <input type="button" value="%">
+                <input type="button" value="/">
+            </fieldset>
+            <fieldset class="fieldsetOne">
+                <input type="button" value="7">
+                <input type="button" value="8">
+                <input type="button" value="9">
+                <input type="button" value="*">
+            </fieldset>
+            <fieldset class="fieldsetOne">
+                <input type="button" value="4">
+                <input type="button" value="5">
+                <input type="button" value="6">
+                <input type="button" value="-">
+            </fieldset>
+            <fieldset class="fieldsetOne">
+                <input type="button" value="1">
+                <input type="button" value="2">
+                <input type="button" value="3">
+                <input type="button" value="+">
+            </fieldset>
+            <fieldset class="fieldsetOne">
+                <input class="buttonWidth" type="button" value="0">
+                <input type="button" value=".">
+                <input id="myBotton" class="mainForms__btn" type="submit" value="=" disabled="disabled">
+            </fieldset>
+
+        </form>
+    </section>
+    <section class="viewDate">
+        <h2 class="viewDate__title">Последние 10 операций</h2>
+        <ul class="viewDate__ul">
+        </ul>
+        <table class="tableCalculator" border="1">
+            <tr>
+                <th>ID</th>
+                <th>Entered Value</th>
+                <th>Result</th>
+                <th>Recording Date</th>
+                <th>Delete</th>
+            </tr>
+            {{range .}}
+            <tr>
+                <td>{{.ID}}</td>
+                <td>{{.EnteredValue}}</td>
+                <td class="maxWidthTd">{{.Result}}</td>
+                <td>{{.RecordingDate}}</td>
+                <td><a href="/deleteEntry?id={{.ID}}"> <img class="deleteX" src="/static/img/calculator/deleteX.png" alt=""> </a></td>
+            </tr>
+            {{end}}
+        </table>
+    </section>
+</main>
+{{end}}

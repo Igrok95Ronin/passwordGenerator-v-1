@@ -1,0 +1,41 @@
+{{template "base" .}}
+
+{{define "title"}}Список Дел!{{end}}
+{{define "h1Title"}}<a class="toDoListLogo" href='/'>To-do list</a>{{end}}
+{{define "Git"}}<a href="https://github.com/Igrok95Ronin/toDoList-v-1" target="_blank">Git To-do-list</a>{{end}}
+{{define "main"}}
+<main class="mainToDoList no-select">
+    <section class="secFormsToDoList">
+        <h2 class="errors"></h2>
+        <form class="mainFormsToDoList" action="/formHandlerToDoList" method="post">
+            <label>
+                <input class="mainFormsToDoListName" name="mainFormsToDoListName" type="text" value="Гость{{ .ID}}" maxlength="15">
+                <textarea class="mainFormsToDoListText" name="mainFormsToDoListText" cols="50" rows="10" placeholder="Ваша заметка..." maxlength="500"></textarea>
+                <input class="mainFormsToDoListBtn" type="submit" value="Добавить" disabled="disabled">
+            </label>
+        </form>
+    </section>
+    <section>
+        <div class="gradientToDoList">
+            <table class="tableToDoList" border="1">
+                <tr>
+                    <th class="thToDoListId">ID</th>
+                    <th class="thToDoListUser">User</th>
+                    <th class="thToDoListMessage">Message</th>
+                    <th class="thToDoListDate">Date</th>
+                    <th class="thToDoListDelete">Delete</th>
+                </tr>
+                {{range .Records}}
+                <tr>
+                    <td class="toDoListId"><span>{{.ID}}</span></td>
+                    <td class="toDoListName">{{.Name}}</td>
+                    <td class="toDoListText" data-id="{{.ID}}">{{.Text}}</td>
+                    <td class="toDoListDate">{{.DateAdded}}</td>
+                    <td class="toDoListDelete"><a href="/deleteEntryToDoList?id={{.ID}}"> <img class="deleteX" src="/static/img/calculator/deleteX.png" alt=""> </a></td>
+                </tr>
+                {{end}}
+            </table>
+        </div>
+    </section>
+</main>
+{{end}}
